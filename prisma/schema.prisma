@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model users {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String  @unique
+  password  String
+  phone     String?
+  birth_day String?
+  gender    String?
+  role      String  @default("USER")
+  avatar    String?
+
+  bookings bookings[]
+  comments comments[]
+}
+
+model locations {
+  id         Int     @id @default(autoincrement())
+  ten_vi_tri String
+  tinh_thanh String
+  quoc_gia   String
+  hinh_anh   String?
+
+  rooms rooms[]
+}
+
+model rooms {
+  id        Int    @id @default(autoincrement())
+  ten_phong String
+  khach     Int
+  phong_ngu Int
+  giuong    Int
+  phong_tam Int
+  mo_ta     String
+  gia_tien  Int
+
+  may_giat Boolean
+  ban_la   Boolean
+  tivi     Boolean
+  dieu_hoa Boolean
+  wifi     Boolean
+  bep      Boolean
+  do_xe    Boolean
+  ho_boi   Boolean
+  ban_ui   Boolean
+
+  hinh_anh String?
+
+  location_id Int
+  location    locations @relation(fields: [location_id], references: [id])
+
+  bookings bookings[]
+  comments comments[]
+}
+
+model bookings {
+  id Int @id @default(autoincrement())
+
+  room_id Int
+  user_id Int
+
+  start_date DateTime
+  end_date   DateTime
+
+  so_luong_khach Int
+
+  room rooms @relation(fields: [room_id], references: [id])
+  user users @relation(fields: [user_id], references: [id])
+}
+
+model comments {
+  id Int @id @default(autoincrement())
+
+  room_id Int
+  user_id Int
+
+  ngay_binh_luan DateTime
+  noi_dung       String
+  sao            Int
+
+  room rooms @relation(fields: [room_id], references: [id])
+  user users @relation(fields: [user_id], references: [id])
+}
