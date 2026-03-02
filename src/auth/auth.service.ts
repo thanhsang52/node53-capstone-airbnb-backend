@@ -29,7 +29,10 @@ export class AuthService {
    data:{
     name:data.name,
     email:data.email,
-    password:hash
+    password:hash,
+    phone:data.phone,
+    birth_day:data.birthDay,
+    gender:data.gender
    }
   })
 
