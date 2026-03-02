@@ -7,6 +7,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { LocationsModule } from './locations/locations.module';
 import { BookingsModule } from './bookings/bookings.module';
 import { CommentsModule } from './comments/comments.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module'
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CommentsModule } from './comments/comments.module';
       isGlobal: true
     }),
     PrismaModule,
+    CloudinaryModule,
     AuthModule,
     UsersModule,
     RoomsModule,
