@@ -8,6 +8,12 @@ const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log('🌱 Seeding database...');
+  const usersCount = await prisma.users.count();
+  if (usersCount > 0) {
+    console.log('Seed skipped: database already contains users.');
+    return;
+  }
+
 
   // ==============================
   // LOCATIONS
@@ -265,3 +271,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
